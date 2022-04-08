@@ -30,13 +30,25 @@ app.use(function(req, res, next) {
 app.use(expressJWT({secret: config.jwtSecretKey}).unless({ path: [/^\/api/]}))
 
 // 导入用户路由模块
-const router = require("./router/user")
+const userRouter = require("./router/user")
+
+// 导入用户信息路由模块
+const userInfoRouter = require("./router/userInfo")
+
+// 导入用户信息路由模块
+const articleCate = require("./router/articleCate")
 
 // 导入表单验证
 const joi = require('joi')
 
 // 注册路由模块
-app.use("/api", router)
+app.use("/api", userRouter)
+
+// 注册用户信息路由模块
+app.use("/my", userInfoRouter)
+
+// 注册文章分类路由模块
+app.use("/my/article", articleCate)
 
 // 统计处理报错
 app.use(function(err, req, res, next){
